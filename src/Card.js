@@ -12,7 +12,7 @@ const Card = ({ name, id, email }) => {
   );
 };
 
-// module.exports = { }
+// module.exports = { in express not here }
 export default Card;
 
 //this is jsx, and needs react to be imported

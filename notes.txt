@@ -1,0 +1,13 @@
+
+Delete all the App.js and related file.
+
+Start from Card.js
+ then create CardList by taking props for Card from Robots.js
+
+ Now, Above was basic.
+ Create App.js
+ Move <CreateList /> from index.js and move inside App.js
+Remember : App.js should not take nay props. so any thing required in CreateList should beimported in App.js
+App.js is parent of all the childs.
+
+index.js -> root of index.html is replaced by what  is in App.js
