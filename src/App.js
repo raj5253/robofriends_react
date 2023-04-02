@@ -1,16 +1,22 @@
 import React, { Component } from "react";
 import CardList from "./CardList";
 import { robots } from "./Robots";
-
 import SearchBox from "./SearchBox"; //first write this line, then create that file
+import "./App.css";
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      robots: robots,
+      robots: [],
       searchfield: "",
     };
+    console.log(1);
+  }
+
+  componentDidMount() {
+    this.setState({ robots: robots });
+    console.log(2);
   }
 
   onSearchChange = (event) => {
@@ -32,9 +38,11 @@ class App extends Component {
         .includes(this.state.searchfield.toLowerCase());
     });
 
+    console.log(3);
+
     return (
       <div className="tc">
-        <h1>Robo Friends</h1>
+        <h1 className="f2">Robo Friends</h1>
         <SearchBox searchChange={this.onSearchChange} />
         {/* <CardList robots={this.state.robots} /> */}
         <CardList robots={filteredRobots} />
@@ -48,3 +56,5 @@ export default App;
 
 // to update vlaue of state :: this.setState({attr :  })
 // to access state value  :: this.state.attr
+
+//  () , componentWillMount() ,  render () , componentDidMount()  are the methods created on each instance of component created
