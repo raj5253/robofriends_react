@@ -1,8 +1,10 @@
 import React, { Component } from "react";
-import CardList from "./CardList";
-import { robots } from "./Robots";
-import SearchBox from "./SearchBox"; //first write this line, then create that file
+import CardList from "../components/CardList";
+import { robots } from "../Robots";
+import SearchBox from "../components/SearchBox"; //first write this line, then create that file
 import "./App.css";
+import Scroll from "../components/Scroll";
+import ErrorBoundary from "../components/ErrorBoundayr";
 
 class App extends Component {
   constructor() {
@@ -15,7 +17,15 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.setState({ robots: robots });
+    fetch("https://jsonplaceholder.typicode.com/users")
+      .then((response) => {
+        return response.json();
+      })
+      .then((users) => {
+        this.setState({ robots: users });
+      });
+
+    // this.setState({ robots: robots });  //instead of this we use fethc api
     console.log(2);
   }
 
@@ -40,14 +50,22 @@ class App extends Component {
 
     console.log(3);
 
-    return (
-      <div className="tc">
-        <h1 className="f2">Robo Friends</h1>
-        <SearchBox searchChange={this.onSearchChange} />
-        {/* <CardList robots={this.state.robots} /> */}
-        <CardList robots={filteredRobots} />
-      </div>
-    );
+    if (!robots.length) {
+      return <h1>Loading...</h1>;
+    } else {
+      return (
+        <div className="tc">
+          <h1 className="f2">Robo Friends</h1>
+          <SearchBox searchChange={this.onSearchChange} />
+          {/* <CardList robots={this.state.robots} /> */}
+          <Scroll>
+            <ErrorBoundary>
+              <CardList robots={filteredRobots} />
+            </ErrorBoundary>
+          </Scroll>
+        </div>
+      );
+    }
   }
 }
 
